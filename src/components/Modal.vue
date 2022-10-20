@@ -1,0 +1,159 @@
+<template>
+    <!-- Modal -->
+    <div id="modal" class="fixed w-full h-full flex align-middle justify-center">
+        <div id="modal-mask"></div>
+        <div id="modal-body" class="bg-white m-auto w-3/4">
+            <h1 class="text-xl font-mono font-bold mt-3">Choose a component to add</h1>
+            <div class="flex justify-center justify-items-center flex-wrap m-2">
+                <div class="object hover:bg-slate-400 hover:text-white flex flex-col justify-center align-middle m-0.5"
+                    v-for="(item, key, index) in available" @click="callFun(item)">
+                    <div>
+                        <span class="m-auto h-full w-full font-bold font-mono text-2xl">{{ key }}</span>
+                    </div>
+                </div>
+            </div>
+            <button class="font-bold font-sans m-2 mr-2 px-6 text-black text-2xl hover:underline"
+                @click="$emit('close')">cancel</button>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+    name: 'Modal',
+    emits: [
+        'new_comp',
+        'close'
+    ],
+    data() {
+        return {
+            available: {
+                'Navigation': 'header1',
+                'Heading': 'heading',
+                // 'Image': 'image',
+                'Paragraph': 'paragraph',
+                'Link': 'link',
+            }
+        }
+    },
+    methods: {
+        callFun(item) {
+            eval('this.' + item)()
+            this.$emit('close')
+        },
+        enableModalHere() {
+
+        },
+        header1() {
+            this.$emit('new_comp',
+                {
+                    'type': 'nav',
+                    'content': 'Default Header text',
+                    'contentSize': 16,
+                    'contentColor': 'rgb(0,0,0)',
+                    'block': true,
+                    'border': 2,
+                    'borderColor': 'rgb(0,0,0)',
+                    'bgColor': 'rgb(255,255,255)',
+                    // 'src': ''
+                }
+            )
+        },
+        heading() {
+            this.$emit('new_comp',
+                {
+                    'type': 'h1',
+                    'content': 'Default Heading text',
+                    'contentSize': 16,
+                    'contentColor': 'rgb(0,0,0)',
+                    'block': true,
+                    'border': 2,
+                    'borderColor': 'rgb(0,0,0)',
+                    'bgColor': 'rgb(255,255,255)',
+                    // 'src': ''
+                }
+            )
+        },
+        // image() {
+        //     this.$emit('new_comp',
+        //         {
+        //             'type': 'img',
+        //             'content': '',
+        //             'contentColor': 'rgb(0,0,0)',
+        //             'block': true,
+        //             'border': 2,
+        //             'borderColor': 'rgb(0,0,0)',
+        //             'bgColor': 'rgb(0,0,0)',
+        //             'src': './default_img.png'
+        //         }
+        //     )
+        // },
+        paragraph() {
+            this.$emit('new_comp',
+                {
+                    'type': 'p',
+                    'content': 'Default paragraph text',
+                    'contentSize': 16,
+                    'contentColor': 'rgb(0,0,0)',
+                    'block': true,
+                    'border': 2,
+                    'borderColor': 'rgb(0,0,0)',
+                    'bgColor': 'rgb(255,255,255)',
+                    // 'src': ''
+                }
+            )
+        },
+        link() {
+            this.$emit('new_comp',
+                {
+                    'type': 'a',
+                    'content': 'Default link text',
+                    'contentSize': 16,
+                    'contentColor': 'rgb(0,0,0)',
+                    'block': true,
+                    'border': 2,
+                    'borderColor': 'rgb(0,0,0)',
+                    'bgColor': 'rgb(255,255,255)',
+                    // 'src': ''
+                }
+            )
+        }
+    }
+}
+</script>
+
+<style scoped>
+#modal-mask {
+    position: fixed;
+    z-index: 9998;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: opacity 0.5s ease alternate;
+}
+
+#modal-body {
+    z-index: 9999;
+    position: fixed;
+    background-color: white;
+    animation: opacity 0.5s ease alternate;
+}
+
+.object {
+    flex: 1 0 25%;
+    height: 150px;
+    background-color: rgb(224, 224, 224);
+}
+
+@keyframes opacity {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 100;
+    }
+}
+</style>
