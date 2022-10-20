@@ -56,8 +56,7 @@ export default {
             color: this.theData.contentColor,
             'font-size': `${this.theData.contentSize}px`,
             'background-color': this.theData.bgColor,
-            border: `${this.theData.border}px`,
-            'border-color': this.theData.borderColor,
+            border: `${this.theData.border}px solid ${this.theData.borderColor}`,
             'min-height': `20px`,
         }
         console.log(this.theData)
