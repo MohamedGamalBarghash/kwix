@@ -1,7 +1,12 @@
+<script setup>
+import { useCompsStore } from '@/stores/comps';
+const store = useCompsStore()
+</script>
+
 <template>
     <nav style="min-height: 20px;" @click="update" class="flex flex-row w-full p-2" v-if="theData.type=='nav'">
         <div class="color flex flex-row w-1/6 h-full align-middle font-serif text-xl font-bold">
-            <div class="m-auto">{{ theData['content'] }}</div>
+            <div :style="styles" class="m-auto">{{ theData['content'] }}</div>
         </div>
         <div class="flex flex-row h-full align-middle w-5/6 text-base font-mono text-slate-600">
             <div class="m-auto">Home</div>
@@ -19,7 +24,7 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref } from 'vue';
 
 export default {
     name: 'block',
@@ -30,37 +35,37 @@ export default {
             styles: {}
         }
     },
-    emits: [
-        'click'
-    ],
     props: [
         'the_index',
-        'website_component'
     ],
     methods: {
-        update() {
-            this.$emit('click')
-        },
         showValue() {
             console.log(this.theData.block)
         },
+        update() {
+            this.store.editingIndex = this.the_index
+        }
     },
-    created() {
-        this.theData = ref(this.website_component)
-        // this.theData['block'] = this.website_component['block'] ? 'block' : 'inline-block'
-    },
-    beforeUpdate() {
-        this.blockY = this.theData.block == true ? 'block' : 'inline-block'
-        this.styles = {
-            display: this.blockY,
+    mounted() {
+        this.theData = ref(this.store.website_components[this.the_index])
+        // this.blockY = this.theData.block == true ? 'block' : 'inline-block'
+        this.theData.styles = {
+            display: ref(this.theData.block == true ? 'block' : 'inline-block'),
             color: this.theData.contentColor,
-            'font-size': `${this.theData.contentSize}px`,
+            'font-size': `${ref(this.theData.contentSize)}px`,
             'background-color': this.theData.bgColor,
             border: `${this.theData.border}px solid ${this.theData.borderColor}`,
             'min-height': `20px`,
         }
-        console.log(this.theData)
-        console.log(this.blockY)
+        // this.theData['block'] = this.website_component['block'] ? 'block' : 'inline-block'
+        // this.styles = {
+        //     display: ref(this.blockY),
+        //     color: this.theData.contentColor,
+        //     'font-size': `${ref(this.theData.contentSize)}px`,
+        //     'background-color': this.theData.bgColor,
+        //     border: `${this.theData.border}px solid ${this.theData.borderColor}`,
+        //     'min-height': `20px`,
+        // }
     },
     computed() {
         // this.blockY = this.theData['block'] ? 'block' : 'inline-block'
@@ -76,11 +81,11 @@ export default {
 }
 
 .color {
-    /* display: v-bind('theData.block'); */
+    display: v-bind('theData.block');
     color: v-bind('theData.contentColor');
-    /* font-size: v-bind('theData.contentSize')em; */
+    font-size: v-bind('theData.contentSize')px;
     background-color: v-bind('theData.bgColor');
-    border: v-bind('theData.border');
+    border: v-bind('theData.border')px;
     border-color: v-bind('theData.borderColor');
 }
 </style>

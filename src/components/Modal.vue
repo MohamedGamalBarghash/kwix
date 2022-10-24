@@ -1,3 +1,8 @@
+<script setup>
+import { useCompsStore } from '@/stores/comps';
+const store = useCompsStore()
+</script>
+
 <template>
     <!-- Modal -->
     <div id="modal" class="fixed w-full h-full flex align-middle justify-center">
@@ -41,11 +46,8 @@ export default {
             eval('this.' + item)()
             this.$emit('close')
         },
-        enableModalHere() {
-
-        },
         header1() {
-            this.$emit('new_comp',
+            this.store.addNewComp(
                 {
                     'type': 'nav',
                     'content': 'Default Header text',
@@ -60,7 +62,7 @@ export default {
             )
         },
         heading() {
-            this.$emit('new_comp',
+            this.store.addNewComp(
                 {
                     'type': 'h1',
                     'content': 'Default Heading text',
@@ -89,7 +91,7 @@ export default {
         //     )
         // },
         paragraph() {
-            this.$emit('new_comp',
+            this.store.addNewComp(
                 {
                     'type': 'p',
                     'content': 'Default paragraph text',
@@ -104,7 +106,7 @@ export default {
             )
         },
         link() {
-            this.$emit('new_comp',
+            this.store.addNewComp(
                 {
                     'type': 'a',
                     'content': 'Default link text',
@@ -118,7 +120,7 @@ export default {
                 }
             )
         }
-    }
+    },
 }
 </script>
 
