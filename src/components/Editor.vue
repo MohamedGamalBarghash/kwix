@@ -1,10 +1,7 @@
 <script setup>
 import { useCompsStore } from '@/stores/comps';
-import { ref } from 'vue'
 
 const store = useCompsStore()
-
-// let theComponent = ref(store.website_components[store.editingIndex])
 </script>
 
 <template>
@@ -12,49 +9,49 @@ const store = useCompsStore()
         <h2 class="text-left text-3xl">
             <strong class="border-2 border-slate-600 text-slate-600">&lt;/&gt;</strong>
             Editor
-            {{ store.editingIndex }}
+            <!-- {{ store.editingIndex }} -->
         </h2>
         <div v-if="store.editingIndex != -1" class="flex flex-col text-left text-xl">
             <!-- Content options -->
-            <div class='flex flex-row w-full align-middle'>
+            <div v-if="check('content')" class='flex flex-row w-full align-middle'>
                 <label for="content" class="font-bold">Content:</label>
             </div>
-            <div class='flex flex-wrap w-full justify-center align-middle'>
+            <div v-if="check('content')" class='flex flex-wrap w-full justify-center align-middle'>
                 <input name="content" class="border-2 border-slate-600 max-w-full text-base" type="text"
                     v-model="store.website_components[store.editingIndex]['content']" />
                 <input name="contentSize" class="border-2 border-slate-600 max-w-full text-base" type="number"
-                    v-model="store.website_components[store.editingIndex]['contentSize']" @focusout="store.updateComp(store.website_components[store.editingIndex])" />
+                    min='2' v-model="contentSize" />
                 <!-- <vue-number-input @update:model-value="store.website_components[store.editingIndex]['contentSize']"
                     v-model="store.website_components[store.editingIndex]['contentSize']" :min="1" inline>
                 </vue-number-input> -->
-                <color-input class="border-2 border-slate-700 m-auto" v-model="store.website_components[store.editingIndex]['contentColor']" />
+                <color-input class="border-2 border-slate-700 m-auto" v-model="store.website_components[store.editingIndex]['styles']['color']" />
             </div>
-            <hr class="w-full border-t-2 border-slate-400 my-2" />
+            <hr v-if="check('content')" class="w-full border-t-2 border-slate-400 my-2" />
 
             <!-- Block options -->
-            <div v-if="store.website_components[store.editingIndex]['type'] !== 'nav'" class='flex flex-row w-full justify-center align-middle'>
+            <div v-if="check_style('display')" class='flex flex-row w-full justify-center align-middle'>
                 <label for="block" class="font-bold">Block:</label>
-                <input name="block" class="ml-auto" type="checkbox" v-model="store.website_components[store.editingIndex]['block']" />
+                <input name="block" class="ml-auto" type="checkbox" v-model="block" />
             </div>
-            <hr class="w-full border-t-2 border-slate-400 my-2" />
+            <hr v-if="check_style('display')" class="w-full border-t-2 border-slate-400 my-2" />
 
             <!-- Border options -->
-            <div class='flex flex-row w-full align-middle'>
+            <div v-if="check_style('border')" class='flex flex-row w-full align-middle'>
                 <label for="border" class="font-bold">Border:</label>
             </div>
-            <div class='flex flex-wrap w-full align-middle'>
+            <div v-if="check_style('border')" class='flex flex-wrap w-full align-middle'>
                 <input name="border" class="border-2 border-slate-600 max-w-full text-base m-auto" type="number"
-                    v-model="store.website_components[store.editingIndex]['border']" />
-                <color-input class="border-2 border-slate-700 m-auto" v-model="store.website_components[store.editingIndex]['borderColor']" />
+                    min='0' v-model="border" />
+                <color-input class="border-2 border-slate-700 m-auto" v-model="store.website_components[store.editingIndex]['styles']['border-color']" />
             </div>
-            <hr class="w-full border-t-2 border-slate-400 my-2" />
+            <hr v-if="check_style('border')" class="w-full border-t-2 border-slate-400 my-2" />
 
             <!-- Background options -->
-            <div class='flex flex-wrap w-full justify-center align-middle'>
+            <div v-if="check_style('background-color')" class='flex flex-wrap w-full justify-center align-middle'>
                 <label for="color" class="font-bold m-auto ml-0">Background color:</label>
-                <color-input class="border-2 border-slate-700 m-auto" v-model="store.website_components[store.editingIndex]['bgColor']" />
+                <color-input class="border-2 border-slate-700 m-auto" v-model="store.website_components[store.editingIndex]['styles']['background-color']" />
             </div>
-            <!-- <hr class="w-full border-t-2 border-slate-400 my-2" /> -->
+            <hr v-if="check_style('background-color')" class="w-full border-t-2 border-slate-400 my-2" />
 
             <!-- Image options -->
             <!-- <div class='flex flex-row w-full align-middle'>
@@ -77,12 +74,58 @@ export default {
             selectedFile: null
         }
     },
+    computed: {
+        contentSize: {
+            // getter
+            get: function () {
+                return parseInt(this.store.website_components[this.store.editingIndex]['styles']['font-size'].replace('px', ''))
+            },
+            // setter
+            set: function (newValue) {
+                this.store.website_components[this.store.editingIndex]['styles']['font-size'] = newValue.toString()+'px'
+            }
+        },
+        block: {
+            // getter
+            get: function () {
+                return this.store.website_components[this.store.editingIndex]['styles']['display'] == 'block' ? true : false
+            },
+            // setter
+            set: function (newValue) {
+                this.store.website_components[this.store.editingIndex]['styles']['display'] = newValue == true ? 'block' : 'inline-block'
+                this.store.website_components[this.store.editingIndex]['styles']['padding'] = newValue == true ? '0px' : '0px 10px 0px 10px'
+            }
+        },
+        border: {
+            // getter
+            get: function () {
+                return parseInt(this.store.website_components[this.store.editingIndex]['styles']['border'].replace('px', ''))
+            },
+            // setter
+            set: function (newValue) {
+                this.store.website_components[this.store.editingIndex]['styles']['border'] = newValue.toString() + 'px'
+            }
+        },
+    },
     methods: {
         remove_item() {
-            // this.$emit('remove_comp', this.theIndex)
             this.store.removeComp(this.store.editingIndex)
             this.store.editingIndex = -1
         },
+        check(item) {
+            if (this.store.website_components[this.store.editingIndex][item] === undefined) {
+                return false
+            } else {
+                return true
+            }
+        },
+        check_style(item) {
+            if (this.store.website_components[this.store.editingIndex]['styles'][item] === undefined) {
+                return false
+            } else {
+                return true
+            }
+        }
     },
 }
 </script>

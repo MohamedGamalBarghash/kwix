@@ -27,7 +27,6 @@ const store = useCompsStore()
 export default {
     name: 'Modal',
     emits: [
-        'new_comp',
         'close'
     ],
     data() {
@@ -38,6 +37,7 @@ export default {
                 // 'Image': 'image',
                 'Paragraph': 'paragraph',
                 'Link': 'link',
+                'Horizontal Splitter': 'hr'
             }
         }
     },
@@ -51,13 +51,15 @@ export default {
                 {
                     'type': 'nav',
                     'content': 'Default Header text',
-                    'contentSize': 16,
-                    'contentColor': 'rgb(0,0,0)',
-                    'block': true,
-                    'border': 2,
-                    'borderColor': 'rgb(0,0,0)',
-                    'bgColor': 'rgb(255,255,255)',
-                    // 'src': ''
+                    'styles': {
+                        'font-size': '16px',
+                        'padding': '0px',
+                        'color': 'rgb(0,0,0)',
+                        'border': '0px',
+                        'border-style': 'solid',
+                        'border-color': 'rgb(0,0,0)',
+                        'background-color': 'rgb(255,255,255)',
+                    }
                 }
             )
         },
@@ -66,13 +68,16 @@ export default {
                 {
                     'type': 'h1',
                     'content': 'Default Heading text',
-                    'contentSize': 16,
-                    'contentColor': 'rgb(0,0,0)',
-                    'block': true,
-                    'border': 2,
-                    'borderColor': 'rgb(0,0,0)',
-                    'bgColor': 'rgb(255,255,255)',
-                    // 'src': ''
+                    'styles': {
+                        'font-size': '16px',
+                        'padding': '0px',
+                        'color': 'rgb(0,0,0)',
+                        'display': 'block',
+                        'border': '2px',
+                        'border-style': 'solid',
+                        'border-color': 'rgb(0,0,0)',
+                        'background-color': 'rgb(255,255,255)',
+                    }
                 }
             )
         },
@@ -95,13 +100,16 @@ export default {
                 {
                     'type': 'p',
                     'content': 'Default paragraph text',
-                    'contentSize': 16,
-                    'contentColor': 'rgb(0,0,0)',
-                    'block': true,
-                    'border': 2,
-                    'borderColor': 'rgb(0,0,0)',
-                    'bgColor': 'rgb(255,255,255)',
-                    // 'src': ''
+                    'styles': {
+                        'font-size': '16px',
+                        'padding': '0px',
+                        'color': 'rgb(0,0,0)',
+                        'display': 'block',
+                        'border': '2px',
+                        'border-style': 'solid',
+                        'border-color': 'rgb(0,0,0)',
+                        'background-color': 'rgb(255,255,255)',
+                    }
                 }
             )
         },
@@ -110,13 +118,30 @@ export default {
                 {
                     'type': 'a',
                     'content': 'Default link text',
-                    'contentSize': 16,
-                    'contentColor': 'rgb(0,0,0)',
-                    'block': true,
-                    'border': 2,
-                    'borderColor': 'rgb(0,0,0)',
-                    'bgColor': 'rgb(255,255,255)',
-                    // 'src': ''
+                    'styles': {
+                        'font-size': '16px',
+                        'padding': '0px',
+                        'color': 'rgb(0,0,0)',
+                        'display': 'block',
+                        'border': '2px',
+                        'border-style': 'solid',
+                        'border-color': 'rgb(0,0,0)',
+                        'background-color': 'rgb(255,255,255)',
+                        'text-decoration': 'underline',
+                    }
+                }
+            )
+        },
+        hr() {
+            this.store.addNewComp(
+                {
+                    'type': 'hr',
+                    'styles': {
+                        'border': '2px',
+                        'border-style': 'solid',
+                        'border-color': 'rgb(0,0,0)',
+                        'margin': '5px 0px 5px 0px'
+                    }
                 }
             )
         }
