@@ -4,7 +4,7 @@ const store = useCompsStore()
 </script>
 
 <template>
-    <div class="w-10/12 bg-slate-400 flex flex-col">
+    <div class="width m-auto mr-0 mt-0 bg-slate-400 flex flex-col">
         <h3 class="text-xl font-bold text-white pt-2 font-mono">Build your own website below</h3>
         <div id="website" class="bg-white mx-3">
             <block v-for="(item, index) of site_components" :key="item" :the_index="index" />
@@ -51,5 +51,15 @@ export default {
 </script>
 
 <style scoped>
+.width {
+    /* width: 100vw; */
+    width: 60rem;
+}
 
+@media only screen and (max-width: 690px) {
+  .width {
+    width: 100vw;
+    max-width: 75%;
+  }
+}
 </style>

@@ -5,7 +5,7 @@ const store = useCompsStore()
 </script>
 
 <template>
-    <div class="w-2/12 bg-white p-5 border-2 border-slate-400">
+    <div class="width m-auto ml-0 mt-0 bg-white p-5 border-2 border-slate-400">
         <h2 class="text-left text-3xl">
             <strong class="border-2 border-slate-600 text-slate-600">&lt;/&gt;</strong>
             Editor
@@ -21,9 +21,15 @@ const store = useCompsStore()
                     v-model="store.website_components[store.editingIndex]['content']" />
                 <input name="contentSize" class="border-2 border-slate-600 max-w-full text-base" type="number"
                     min='2' v-model="contentSize" />
-                <!-- <vue-number-input @update:model-value="store.website_components[store.editingIndex]['contentSize']"
-                    v-model="store.website_components[store.editingIndex]['contentSize']" :min="1" inline>
-                </vue-number-input> -->
+                <select v-if="check_style('font-weight')" class="border-2 border-slate-600 max-w-full text-base" v-model="store.website_components[store.editingIndex].styles['font-weight']">
+                    <option value="normal">normal</option>
+                    <option value="bold">bold</option>
+                </select>
+                <select v-if="check_style('font-style')" class="border-2 border-slate-600 max-w-full text-base" v-model="store.website_components[store.editingIndex].styles['font-style']">
+                    <option value="normal">normal</option>
+                    <option value="italic">italic</option>
+                    <option value="oblique">oblique</option>
+                </select>
                 <color-input class="border-2 border-slate-700 m-auto" v-model="store.website_components[store.editingIndex]['styles']['color']" />
             </div>
             <hr v-if="check('content')" class="w-full border-t-2 border-slate-400 my-2" />
@@ -129,3 +135,18 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+.width {
+    width: 100vw;
+    min-width: 15rem;
+    max-width: 30rem;
+}
+
+@media only screen and (max-width: 690px) {
+  .width {
+    width: 100vw;
+    max-width: 25%;
+  }
+}
+</style>

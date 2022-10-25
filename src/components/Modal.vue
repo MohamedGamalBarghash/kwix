@@ -59,6 +59,8 @@ export default {
                         'border-style': 'solid',
                         'border-color': 'rgb(0,0,0)',
                         'background-color': 'rgb(255,255,255)',
+                        'font-weight': 'normal',
+                        'font-style': 'normal'
                     }
                 }
             )
@@ -77,6 +79,8 @@ export default {
                         'border-style': 'solid',
                         'border-color': 'rgb(0,0,0)',
                         'background-color': 'rgb(255,255,255)',
+                        'font-weight': 'normal',
+                        'font-style': 'normal'
                     }
                 }
             )
@@ -109,6 +113,8 @@ export default {
                         'border-style': 'solid',
                         'border-color': 'rgb(0,0,0)',
                         'background-color': 'rgb(255,255,255)',
+                        'font-weight': 'normal',
+                        'font-style': 'normal'
                     }
                 }
             )
