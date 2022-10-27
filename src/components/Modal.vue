@@ -11,7 +11,7 @@ const store = useCompsStore()
             <h1 class="text-xl font-mono font-bold mt-3">Choose a component to add</h1>
             <div class="flex justify-center justify-items-center flex-wrap m-2">
                 <div class="object hover:bg-slate-400 hover:text-white flex flex-col justify-center align-middle m-0.5"
-                    v-for="(item, key, index) in available" @click="callFun(item)">
+                    v-for="(item, key) in available" :key="item" @click="callFun(item)">
                     <div>
                         <span class="m-auto h-full w-full font-bold font-mono text-2xl">{{ key }}</span>
                     </div>
@@ -60,7 +60,12 @@ export default {
                         'border-color': 'rgb(0,0,0)',
                         'background-color': 'rgb(255,255,255)',
                         'font-weight': 'normal',
-                        'font-style': 'normal'
+                        'font-style': 'normal',
+                        'margin': '0px',
+                        'margin-left': '0vw',
+                        'margin-right': '0vw',
+                        'margin-top': '0vw',
+                        'margin-bottom': '0vw' 
                     }
                 }
             )
@@ -80,7 +85,13 @@ export default {
                         'border-color': 'rgb(0,0,0)',
                         'background-color': 'rgb(255,255,255)',
                         'font-weight': 'normal',
-                        'font-style': 'normal'
+                        'font-style': 'normal',
+                        'float': 'middle',
+                        'margin': '0px',
+                        'margin-left': '0vw',
+                        'margin-right': '0vw',
+                        'margin-top': '0vw',
+                        'margin-bottom': '0vw' 
                     }
                 }
             )
@@ -114,7 +125,13 @@ export default {
                         'border-color': 'rgb(0,0,0)',
                         'background-color': 'rgb(255,255,255)',
                         'font-weight': 'normal',
-                        'font-style': 'normal'
+                        'font-style': 'normal',
+                        'float': 'middle',
+                        'margin': '0px',
+                        'margin-left': '0vw',
+                        'margin-right': '0vw',
+                        'margin-top': '0vw',
+                        'margin-bottom': '0vw' 
                     }
                 }
             )
@@ -134,6 +151,12 @@ export default {
                         'border-color': 'rgb(0,0,0)',
                         'background-color': 'rgb(255,255,255)',
                         'text-decoration': 'underline',
+                        'float': 'middle',
+                        'margin': '0px',
+                        'margin-left': '0vw',
+                        'margin-right': '0vw',
+                        'margin-top': '0vw',
+                        'margin-bottom': '0vw' 
                     }
                 }
             )
@@ -146,7 +169,11 @@ export default {
                         'border': '2px',
                         'border-style': 'solid',
                         'border-color': 'rgb(0,0,0)',
-                        'margin': '5px 0px 5px 0px'
+                        'margin': '0px',
+                        'margin-left': '0vw',
+                        'margin-right': '0vw',
+                        'margin-top': '0vw',
+                        'margin-bottom': '0vw' 
                     }
                 }
             )

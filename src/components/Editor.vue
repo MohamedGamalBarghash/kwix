@@ -30,6 +30,17 @@ const store = useCompsStore()
                     <option value="italic">italic</option>
                     <option value="oblique">oblique</option>
                 </select>
+                <div v-if="check_style('float')" style="overflow: auto;">
+                    <button @click="align('left')" class="material-symbols-outlined">
+                        format_align_left
+                    </button>
+                    <button @click="align('none')" class="material-symbols-outlined">
+                        format_align_center
+                    </button>
+                    <button @click="align('right')" class="material-symbols-outlined">
+                        format_align_right
+                    </button>
+                </div>
                 <color-input class="border-2 border-slate-700 m-auto" v-model="store.website_components[store.editingIndex]['styles']['color']" />
             </div>
             <hr v-if="check('content')" class="w-full border-t-2 border-slate-400 my-2" />
@@ -49,6 +60,34 @@ const store = useCompsStore()
                 <input name="border" class="border-2 border-slate-600 max-w-full text-base m-auto" type="number"
                     min='0' v-model="border" />
                 <color-input class="border-2 border-slate-700 m-auto" v-model="store.website_components[store.editingIndex]['styles']['border-color']" />
+            </div>
+            <hr v-if="check_style('border')" class="w-full border-t-2 border-slate-400 my-2" />
+
+            <!-- Margin options -->
+            <div v-if="check_style('margin')" class='flex flex-row w-full align-middle'>
+                <label for="border" class="font-bold">Margin:</label>
+            </div>
+            <div v-if="check_style('margin')" class='flex flex-wrap w-full align-middle'>
+                <div class="w-full flex flex-row">
+                    <label for="margin_top" class="text-base m-auto ml-0">Top:</label>
+                    <input name="margin_top" class="border-2 border-slate-600 max-w-full text-base m-auto mr-0" type="number"
+                        min='0' v-model="margin_top" />
+                </div>
+                <div class="w-full flex flex-row">
+                    <label for="margin_right" class="text-base m-auto ml-0">Right:</label>
+                    <input name="margin_right" class="border-2 border-slate-600 max-w-full text-base m-auto mr-0" type="number"
+                        min='0' v-model="margin_right" />
+                </div>
+                <div class="w-full flex flex-row">
+                    <label for="margin_bottom" class="text-base m-auto ml-0">Bottom:</label>
+                    <input name="margin_bottom" class="border-2 border-slate-600 max-w-full text-base m-auto mr-0" type="number"
+                        min='0' v-model="margin_bottom" />
+                </div>
+                <div class="w-full flex flex-row">
+                    <label for="margin_left" class="text-base m-auto ml-0">Left:</label>
+                    <input name="margin_left" class="border-2 border-slate-600 max-w-full text-base m-auto mr-0" type="number"
+                        min='0' v-model="margin_left" />
+                </div>
             </div>
             <hr v-if="check_style('border')" class="w-full border-t-2 border-slate-400 my-2" />
 
@@ -78,6 +117,11 @@ export default {
     data() {
         return {
             selectedFile: null
+        }
+    },
+    updated() {
+        if (this.store.website_components[this.store.editingIndex]['styles']['float'] !== 'none') {
+            this.store.website_components[this.store.editingIndex]['styles']['display'] = 'inline-block'
         }
     },
     computed: {
@@ -112,6 +156,46 @@ export default {
                 this.store.website_components[this.store.editingIndex]['styles']['border'] = newValue.toString() + 'px'
             }
         },
+        margin_top: {
+            // getter
+            get: function () {
+                return parseInt(this.store.website_components[this.store.editingIndex]['styles']['margin-top'].replace('em', ''))
+            },
+            // setter
+            set: function (newValue) {
+                this.store.website_components[this.store.editingIndex]['styles']['margin-top'] = newValue.toString()+'em'
+            }
+        },
+        margin_right: {
+            // getter
+            get: function () {
+                return parseInt(this.store.website_components[this.store.editingIndex]['styles']['margin-right'].replace('em', ''))
+            },
+            // setter
+            set: function (newValue) {
+                this.store.website_components[this.store.editingIndex]['styles']['margin-right'] = newValue.toString()+'em'
+            }
+        },
+        margin_bottom: {
+            // getter
+            get: function () {
+                return parseInt(this.store.website_components[this.store.editingIndex]['styles']['margin-bottom'].replace('em', ''))
+            },
+            // setter
+            set: function (newValue) {
+                this.store.website_components[this.store.editingIndex]['styles']['margin-bottom'] = newValue.toString()+'em'
+            }
+        },
+        margin_left: {
+            // getter
+            get: function () {
+                return parseInt(this.store.website_components[this.store.editingIndex]['styles']['margin-left'].replace('em', ''))
+            },
+            // setter
+            set: function (newValue) {
+                this.store.website_components[this.store.editingIndex]['styles']['margin-left'] = newValue.toString()+'em'
+            }
+        },
     },
     methods: {
         remove_item() {
@@ -131,6 +215,9 @@ export default {
             } else {
                 return true
             }
+        },
+        align (dir) {
+            this.store.website_components[this.store.editingIndex]['styles']['float'] = dir
         }
     },
 }

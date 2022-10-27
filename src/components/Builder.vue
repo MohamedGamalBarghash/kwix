@@ -6,7 +6,7 @@ const store = useCompsStore()
 <template>
     <div class="width m-auto mr-0 mt-0 bg-slate-400 flex flex-col">
         <h3 class="text-xl font-bold text-white pt-2 font-mono">Build your own website below</h3>
-        <div id="website" class="bg-white mx-3">
+        <div id="website" class="bg-white mx-3 overflow-auto">
             <block v-for="(item, index) of site_components" :key="item" :the_index="index" />
         </div>
         <div class="m-2 border-2 border-slate-500 rounded-xl">
