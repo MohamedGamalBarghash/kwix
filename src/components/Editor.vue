@@ -45,6 +45,24 @@ const store = useCompsStore()
             </div>
             <hr v-if="check('content')" class="w-full border-t-2 border-slate-400 my-2" />
 
+            <!-- Dimension options -->
+            <div v-if="check_style('height')" class='flex flex-row w-full align-middle'>
+                <label for="height" class="font-bold">Dimensions:</label>
+            </div>
+            <div v-if="check_style('height')" class='flex flex-wrap w-full justify-center align-middle'>
+                <div class="w-full flex flex-row">
+                    <label for="height" class="text-base m-auto ml-0">Height: </label>
+                    <input name="height" class="border-2 border-slate-600 m-auto mr-0 max-w-full text-base" type="number"
+                        min='2' v-model="height" />
+                </div>
+                <div class="w-full flex flex-row">
+                    <label for="width" class="text-base m-auto ml-0">Width: </label>
+                    <input name="width" class="border-2 border-slate-600 m-auto mr-0 max-w-full text-base" type="number"
+                        min='2' v-model="width" />
+                </div>
+            </div>
+            <hr v-if="check_style('height')" class="w-full border-t-2 border-slate-400 my-2" />
+
             <!-- Block options -->
             <div v-if="check_style('display')" class='flex flex-row w-full justify-center align-middle'>
                 <label for="block" class="font-bold">Block:</label>
@@ -89,7 +107,7 @@ const store = useCompsStore()
                         min='0' v-model="margin_left" />
                 </div>
             </div>
-            <hr v-if="check_style('border')" class="w-full border-t-2 border-slate-400 my-2" />
+            <hr v-if="check_style('margin')" class="w-full border-t-2 border-slate-400 my-2" />
 
             <!-- Background options -->
             <div v-if="check_style('background-color')" class='flex flex-wrap w-full justify-center align-middle'>
@@ -120,9 +138,7 @@ export default {
         }
     },
     updated() {
-        if (this.store.website_components[this.store.editingIndex]['styles']['float'] !== 'none') {
-            this.store.website_components[this.store.editingIndex]['styles']['display'] = 'inline-block'
-        }
+
     },
     computed: {
         contentSize: {
@@ -142,8 +158,35 @@ export default {
             },
             // setter
             set: function (newValue) {
-                this.store.website_components[this.store.editingIndex]['styles']['display'] = newValue == true ? 'block' : 'inline-block'
-                this.store.website_components[this.store.editingIndex]['styles']['padding'] = newValue == true ? '0px' : '0px 10px 0px 10px'
+                this.store.website_components[this.store.editingIndex]['styles']['display'] = (newValue == true ? 'block' : 'inline-block')
+                this.store.website_components[this.store.editingIndex]['styles']['padding'] = (newValue == true ? '0px' : '0px 10px 0px 10px')
+                this.store.website_components[this.store.editingIndex]['styles']['float'] = 'none'
+            }
+        },
+        height: {
+            // getter
+            get: function () {
+                return parseInt(this.store.website_components[this.store.editingIndex]['styles']['height'].replace('px', ''))
+            },
+            // setter
+            set: function (newValue) {
+                if(newValue == '')
+                    this.store.website_components[this.store.editingIndex]['styles']['height'] = 'auto'
+                else
+                    this.store.website_components[this.store.editingIndex]['styles']['height'] = newValue.toString()+'px'
+            }
+        },
+        width: {
+            // getter
+            get: function () {
+                return parseInt(this.store.website_components[this.store.editingIndex]['styles']['width'].replace('px', ''))
+            },
+            // setter
+            set: function (newValue) {
+                if(newValue == '')
+                    this.store.website_components[this.store.editingIndex]['styles']['width'] = 'auto'
+                else
+                    this.store.website_components[this.store.editingIndex]['styles']['width'] = newValue.toString()+'px'
             }
         },
         border: {
@@ -218,6 +261,7 @@ export default {
         },
         align (dir) {
             this.store.website_components[this.store.editingIndex]['styles']['float'] = dir
+            this.store.website_components[this.store.editingIndex]['styles']['display'] = 'inline-block'
         }
     },
 }

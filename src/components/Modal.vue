@@ -52,6 +52,8 @@ export default {
                     'type': 'nav',
                     'content': 'Default Header text',
                     'styles': {
+                        'height': 'auto',
+                        'width': 'audo',
                         'font-size': '16px',
                         'padding': '0px',
                         'color': 'rgb(0,0,0)',
@@ -76,6 +78,8 @@ export default {
                     'type': 'h1',
                     'content': 'Default Heading text',
                     'styles': {
+                        'height': 'auto',
+                        'width': 'auto',
                         'font-size': '16px',
                         'padding': '0px',
                         'color': 'rgb(0,0,0)',
@@ -116,6 +120,8 @@ export default {
                     'type': 'p',
                     'content': 'Default paragraph text',
                     'styles': {
+                        'height': 'auto',
+                        'width': 'auto',
                         'font-size': '16px',
                         'padding': '0px',
                         'color': 'rgb(0,0,0)',
@@ -142,6 +148,8 @@ export default {
                     'type': 'a',
                     'content': 'Default link text',
                     'styles': {
+                        'height': 'auto',
+                        'width': 'auto',
                         'font-size': '16px',
                         'padding': '0px',
                         'color': 'rgb(0,0,0)',
