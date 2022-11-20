@@ -17,7 +17,7 @@ const store = useCompsStore()
                 <label for="content" class="font-bold">Content:</label>
             </div>
             <div v-if="check('content')" class='flex flex-wrap w-full justify-center align-middle'>
-                <input name="content" class="border-2 border-slate-600 max-w-full text-base" type="text"
+                <textarea name="content" class=" w-full border-2 border-slate-600 max-w-full text-base"
                     v-model="store.website_components[store.editingIndex]['content']" />
                 <input name="contentSize" class="border-2 border-slate-600 max-w-full text-base" type="number"
                     min='2' v-model="contentSize" />
